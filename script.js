@@ -17,7 +17,7 @@ header.style.zIndex = "1000";
 
 // Logo
 const logo = document.createElement("div");
-logo.innerText = "New Animation Premium 2.0";
+logo.innerText = "new animation premium 2.0";
 logo.style.fontSize = "1.5em";
 logo.style.fontWeight = "bold";
 header.appendChild(logo);
@@ -26,7 +26,7 @@ header.appendChild(logo);
 const nav = document.createElement("nav");
 header.appendChild(nav);
 
-const buttons = ["Home", "Channels", "Videos"];
+const buttons = ["Home", "Channels", "Videos", "YouTube"];
 buttons.forEach((btnText) => {
   const button = document.createElement("button");
   button.innerText = btnText;
@@ -52,18 +52,21 @@ document.body.appendChild(main);
 
 // Video data (local video file paths)
 const videos = [
-  { title: "Let's welcome Wlang to the world!", filePath: "videos/video1.mp4", channel: "Carti-Drillman" },
-  { title: "First Jet Plane spotting | MAI embraer E190 jet XY-ALP #planespotting #cartisaviation", filePath: "videos/video2.mp4", channel: "Carti-Drillman" },
-  { title: "I make a burmese coding language.", filePath: "videos/video3.mp4", channel: "Unknown-user" },
-  { title:"Thank you so much", url: "https://www.youtube.com/watch?v=rxUqkKNzQKQ", channel: "Nightmare X Daylight"}
+  { title: "Lets welcome Wlang to the world!", filePath: "videos/video1.mp4", channel: "Carti-drillman" },
+  { title: "First Jet Plane spotting | MAI embraer E190 jet XY-ALP #planespotting #cartisaviation", filePath: "videos/video2.mp4", channel: "Carti-drillman" },
+  { title: "I make a burmese coding language.", filePath: "videos/video3.mp4", channel: "Unknown-User" },
+  { title: "Multiverse of Doomed 19 part 1", filePath: "videos/video4.mp4", channel: "Nightmare X Daylight"}
 ];
 
 // Channel data
 const channels = [
-  { name: "Carti-Drillman", description: "callsign: @carti221" },
-  { name: "Unknown-user", description: "callsign: @Unknown-user" },
+  { name: "Carti-drillman", description: "callsign: @carti221." },
+  { name: "Unknown-User", description: "callsign: @unknownuser" },
   { name: "Nightmare X Daylight", description: "callsign: @nightmare"}
 ];
+
+// YouTube video link
+const youtubeVideoLink = 'https://www.youtube.com/watch?v=2t4gQrxhwaM';
 
 // Dynamic Content Function
 function handleNavigation(page) {
@@ -123,6 +126,21 @@ function handleNavigation(page) {
   } else if (page === "Videos") {
     // Videos content
     loadVideos();
+  } else if (page === "YouTube") {
+    // YouTube video content
+    const iframeContainer = document.createElement("div");
+    iframeContainer.style.textAlign = "center";
+
+    const iframe = document.createElement("iframe");
+    iframe.width = "560";
+    iframe.height = "315";
+    iframe.src = `https://www.youtube.com/embed/2t4gQrxhwaM`;
+    iframe.frameBorder = "0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+
+    iframeContainer.appendChild(iframe);
+    main.appendChild(iframeContainer);
   }
 }
 
