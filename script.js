@@ -55,14 +55,14 @@ const videos = [
   { title: "Lets welcome Wlang to the world!", filePath: "videos/video1.mp4", channel: "Carti-drillman" },
   { title: "First Jet Plane spotting | MAI embraer E190 jet XY-ALP #planespotting #cartisaviation", filePath: "videos/video2.mp4", channel: "Carti-drillman" },
   { title: "I make a burmese coding language.", filePath: "videos/video3.mp4", channel: "Unknown-User" },
-  { title: "Multiverse of Doomed 19 part 1", filePath: "videos/video4.mp4", channel: "Nightmare X Daylight"}
+  { title: "Multiverse of Doomed 19 part 1", filePath: "videos/video4.mp4", channel: "Nightmare X Daylight" }
 ];
 
 // Channel data
 const channels = [
-  { name: "Carti-drillman", description: "callsign: @carti221." },
-  { name: "Unknown-User", description: "callsign: @unknownuser" },
-  { name: "Nightmare X Daylight", description: "callsign: @nightmare"}
+  { name: "Carti-drillman", description: "callsign: @carti221. Tokens: 100" },
+  { name: "Unknown-User", description: "callsign: @unknownuser. Tokens: 1202" },
+  { name: "Nightmare X Daylight", description: "callsign: @nightmare. Tokens: 2912" }
 ];
 
 // YouTube video link
@@ -123,6 +123,52 @@ function handleNavigation(page) {
     });
 
     main.appendChild(channelsList);
+
+    // Add "Create Account" button
+    const createAccountButton = document.createElement("button");
+    createAccountButton.innerText = "Create New Account";
+    createAccountButton.style.padding = "0.5em 1em";
+    createAccountButton.style.backgroundColor = "#FF0000";
+    createAccountButton.style.color = "white";
+    createAccountButton.style.border = "none";
+    createAccountButton.style.borderRadius = "5px";
+    createAccountButton.style.cursor = "pointer";
+    createAccountButton.style.display = "block";
+    createAccountButton.style.margin = "20px auto";
+
+    createAccountButton.addEventListener("click", () => {
+      const username = prompt("Enter your desired username:");
+      const email = prompt("Enter your email address:");
+
+      if (username && email) {
+        alert("Your account request has been sent for permission. Please wait for confirmation.");
+
+        // Send a POST request to your server to handle the email sending
+        fetch('/send-permission-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email }),
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("Request sent successfully!");
+          } else {
+            alert("Failed to send request. Please try again later.");
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("An error occurred while sending the request.");
+        });
+      } else {
+        alert("Please fill out all required fields.");
+      }
+    });
+
+    main.appendChild(createAccountButton);
   } else if (page === "Videos") {
     // Videos content
     loadVideos();
@@ -194,6 +240,19 @@ function loadVideos(channelName) {
       videoTitle.innerText = video.title;
       videoTitle.style.textAlign = "center";
       main.appendChild(videoTitle);
+
+      const backButton = document.createElement("button");
+      backButton.innerText = "Back to Videos";
+      backButton.style.margin = "1em auto";
+      backButton.style.display = "block";
+      backButton.style.padding = "0.5em 1em";
+      backButton.style.backgroundColor = "#FF0000";
+      backButton.style.color = "white";
+      backButton.style.border = "none";
+      backButton.style.borderRadius = "5px";
+      backButton.style.cursor = "pointer";
+      backButton.addEventListener("click", () => handleNavigation("Videos"));
+      main.appendChild(backButton);
     });
 
     videoGrid.appendChild(videoCard);
@@ -202,5 +261,5 @@ function loadVideos(channelName) {
   main.appendChild(videoGrid);
 }
 
-// Default Page
+// Initial page load
 handleNavigation("Home");
