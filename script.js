@@ -17,7 +17,7 @@ header.style.zIndex = "1000";
 
 // Logo
 const logo = document.createElement("div");
-logo.innerText = "new animation premium 2.0";
+logo.innerText = "New Animatioin Premium 2.0";
 logo.style.fontSize = "1.5em";
 logo.style.fontWeight = "bold";
 header.appendChild(logo);
@@ -66,7 +66,8 @@ const channels = [
 ];
 
 // YouTube video link
-const youtubeVideoLink = 'https://www.youtube.com/watch?v=2t4gQrxhwaM';
+const youtubeVideoLink = 'https://www.youtube.com/watch?v=2t4gQrxhwaM';,
+const youtubeVideoLink = "https://www.youtube.com/watch?v=2ktMVM3Bc4I";
 
 // Dynamic Content Function
 function handleNavigation(page) {
