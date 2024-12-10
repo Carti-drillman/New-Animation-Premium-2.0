@@ -17,7 +17,7 @@ header.style.zIndex = "1000";
 
 // Logo
 const logo = document.createElement("div");
-logo.innerText = "New Animatioin Premium 2.0";
+logo.innerText = "New Animation Premium 2.0";
 logo.style.fontSize = "1.5em";
 logo.style.fontWeight = "bold";
 header.appendChild(logo);
@@ -65,9 +65,11 @@ const channels = [
   { name: "Nightmare X Daylight", description: "callsign: @nightmare. Tokens: 2912" }
 ];
 
-// YouTube video link
-const youtubeVideoLink = 'https://www.youtube.com/watch?v=2t4gQrxhwaM';,
-const youtubeVideoLink = "https://www.youtube.com/watch?v=2ktMVM3Bc4I";
+// YouTube video links
+const youtubeVideoLinks = [
+  'https://www.youtube.com/watch?v=2t4gQrxhwaM', // Existing video
+  'https://www.youtube.com/watch?v=2ktMVM3Bc4I' // New video link
+];
 
 // Dynamic Content Function
 function handleNavigation(page) {
@@ -178,15 +180,19 @@ function handleNavigation(page) {
     const iframeContainer = document.createElement("div");
     iframeContainer.style.textAlign = "center";
 
-    const iframe = document.createElement("iframe");
-    iframe.width = "560";
-    iframe.height = "315";
-    iframe.src = `https://www.youtube.com/embed/2t4gQrxhwaM`;
-    iframe.frameBorder = "0";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    iframe.allowFullscreen = true;
+    youtubeVideoLinks.forEach(link => {
+      const iframe = document.createElement("iframe");
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.src = link.replace('watch?v=', 'embed/');
+      iframe.frameBorder = "0";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
 
-    iframeContainer.appendChild(iframe);
+      iframeContainer.appendChild(iframe);
+      iframeContainer.appendChild(document.createElement("br"));
+    });
+
     main.appendChild(iframeContainer);
   }
 }
@@ -234,17 +240,15 @@ function loadVideos(channelName) {
       videoPlayer.src = video.filePath;
       videoPlayer.controls = true;
       videoPlayer.style.width = "100%";
+      videoPlayer.style.maxWidth = "800px";
+      videoPlayer.style.margin = "0 auto";
+      videoPlayer.style.display = "block";
       videoPlayer.style.height = "480px";
       main.appendChild(videoPlayer);
 
-      const videoTitle = document.createElement("h2");
-      videoTitle.innerText = video.title;
-      videoTitle.style.textAlign = "center";
-      main.appendChild(videoTitle);
-
       const backButton = document.createElement("button");
       backButton.innerText = "Back to Videos";
-      backButton.style.margin = "1em auto";
+      backButton.style.marginTop = "20px";
       backButton.style.display = "block";
       backButton.style.padding = "0.5em 1em";
       backButton.style.backgroundColor = "#FF0000";
@@ -253,6 +257,7 @@ function loadVideos(channelName) {
       backButton.style.borderRadius = "5px";
       backButton.style.cursor = "pointer";
       backButton.addEventListener("click", () => handleNavigation("Videos"));
+
       main.appendChild(backButton);
     });
 
